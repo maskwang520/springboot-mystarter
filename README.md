@@ -1,11 +1,4 @@
----
-title: Spring boot构建自定义的starter
-date: 2017-11-04 19:51:52
-categories: Springboot
-tags: 
-- Springboot
-- java
----
+-
  在我们日常用springboot的开发过程中，经常会遇到使用如下的一个类来代表程序的入口类。即
 ```java
 @SpringBootApplication
@@ -16,7 +9,7 @@ public class App {
 }
 ```
   包括我自己，我平常在开发的过程中，并没有去重点关注spring boot的运行原理，大家都是约定俗成的这么去使用。接下的过程中，将会结合源码简单的分析下springboot运行原理。
-<!-- more -->
+
 #### 一.Springboot 自动配置原理分析
    `@SpringBootApplication`注解`@SpringBootApplication`是一个复合注解，它包括`@SpringBootConfiguration`，`@EnableAutoConfiguration`，`@ComponentScan`三个注解。其中最关键的莫过`@EnableAutoConfiguration`这个注解。在它的源码中加入了这样一个注解`@Import({EnableAutoConfigurationImportSelector.class})`，`EnableAutoConfigurationImportSelector`,它使用`SpringFactoriesLoader. loadFactoryNames`方法来扫描`META-INF/spring.factories`文件，此文件中声明了有哪些自动配置。源码如下（我挑选出重要的一部分）
 ```java
